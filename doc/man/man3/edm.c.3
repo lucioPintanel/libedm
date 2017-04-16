@@ -1,0 +1,655 @@
+.TH "/home/lucio/Documentos/desenvolvimento/algoritmo_C/bibliotecas/static/libEdm/scr/edm.c" 3 "Sat Apr 15 2017" "Version 1.0.00" "Library EDM" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/lucio/Documentos/desenvolvimento/algoritmo_C/bibliotecas/static/libEdm/scr/edm.c \- File containing includes, defines, and demias externados\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdint\&.h>\fP
+.br
+\fC#include <string\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include 'edm\&.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBstParamCtrl_t\fP"
+.br
+.ti -1c
+.RI "struct \fBcm_t\fP"
+.br
+.RI "\fIset before the first initializing call to cm_ini\&. \fP"
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBVERSAO_MAX\fP   _VERSAO_MAX"
+.br
+.ti -1c
+.RI "#define \fBVERSAO_MIN\fP   _VERSAO_MIN"
+.br
+.ti -1c
+.RI "#define \fBVERSAO_NRO\fP   _VERSAO_NRO"
+.br
+.ti -1c
+.RI "#define \fBMAX_TAM\fP   256UL"
+.br
+.ti -1c
+.RI "#define \fBCRC16_CITT_POLY\fP   0x1021UL"
+.br
+.ti -1c
+.RI "#define \fBCRC16_XMODEM_POLY\fP   0x8408UL"
+.br
+.ti -1c
+.RI "#define \fBCRC16_ARC_POLY\fP   0x8005UL"
+.br
+.ti -1c
+.RI "#define \fBCRC16_DNP\fP   0xA6BCUL"
+.br
+.ti -1c
+.RI "#define \fBCRC32\fP   0x04C11DB7UL"
+.br
+.ti -1c
+.RI "#define \fBBITMASK\fP(X)   (1L << (X))"
+.br
+.ti -1c
+.RI "#define \fBLOCAL\fP   static"
+.br
+.ti -1c
+.RI "#define \fBFALSE\fP   0"
+.br
+.ti -1c
+.RI "#define \fBTRUE\fP   1"
+.br
+.ti -1c
+.RI "#define \fBP_\fP(A)   A"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef unsigned long \fBulong\fP"
+.br
+.ti -1c
+.RI "typedef unsigned \fBbool\fP"
+.br
+.ti -1c
+.RI "typedef unsigned char * \fBp_ubyte_\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBLOCAL\fP \fBulong\fP \fBreflect\fP \fBP_\fP ((\fBulong\fP v, int b))"
+.br
+.ti -1c
+.RI "\fBLOCAL\fP \fBulong\fP \fBwidmask\fP \fBP_\fP ((\fBp_cm_t\fP))"
+.br
+.ti -1c
+.RI "const char * \fBlibEdmVersion\fP (int min)"
+.br
+.ti -1c
+.RI "uint8_t \fBlibEdmCksData\fP (uint8_t *data, const uint32_t size)"
+.br
+.RI "\fIfuncao que calcula lrc, Longitudinal redundancy check \fP"
+.ti -1c
+.RI "\fBLOCAL\fP \fBulong\fP \fBreflect\fP (\fBulong\fP v, int b)"
+.br
+.RI "\fIReturns the value v with the bottom b [0,32] bits reflected\&. Example: reflect(0x3e23L,3) == 0x3e26\&. \fP"
+.ti -1c
+.RI "\fBLOCAL\fP \fBulong\fP \fBwidmask\fP (\fBp_cm_t\fP p_cm)"
+.br
+.RI "\fIReturns a longword whose value is (2^p_cm->cm_width)-1\&. The trick is to do this portably (e\&.g\&. without doing <<32)\&. \fP"
+.ti -1c
+.RI "void \fBcm_ini\fP (\fBp_cm_t\fP p_cm)"
+.br
+.ti -1c
+.RI "void \fBcm_nxt\fP (\fBp_cm_t\fP p_cm, int ch)"
+.br
+.ti -1c
+.RI "void \fBcm_blk\fP (\fBp_cm_t\fP p_cm, \fBp_ubyte_\fP blk_adr, \fBulong\fP blk_len)"
+.br
+.ti -1c
+.RI "\fBulong\fP \fBcm_crc\fP (\fBp_cm_t\fP p_cm)"
+.br
+.ti -1c
+.RI "\fBulong\fP \fBcm_tab\fP (\fBp_cm_t\fP p_cm, int index)"
+.br
+.RI "\fIfuncao que inicializa a tabela para facilitar o calculo do crc \fP"
+.ti -1c
+.RI "\fBp_cm_t\fP \fBlibEdmInitCRC16CITT\fP (void)"
+.br
+.RI "\fIfuncao que inicializa crc16 com padrao CITT \fP"
+.ti -1c
+.RI "int \fBlibEdmGetCrc16CITT_r\fP (\fBp_cm_t\fP p_cm, const uint8_t *vet, uint32_t sizeVet, uint16_t *crc16)"
+.br
+.RI "\fIfuncao que calcula o crc dos dados do vetor passado como parametro, preenchendo a variavel passada por referencia \fP"
+.ti -1c
+.RI "\fBp_cm_t\fP \fBlibEdmInitXModem\fP (void)"
+.br
+.RI "\fIfuncao que inicializa crc16 com padrao XModem \fP"
+.ti -1c
+.RI "int \fBlibGetCrcXModem_r\fP (\fBp_cm_t\fP p_cm, const uint8_t *vet, uint32_t sizeVet, uint16_t *crc16)"
+.br
+.RI "\fIfuncao que calcula o crc dos dados do vetor passado como parametro, preenchendo a variavel passada por referencia \fP"
+.ti -1c
+.RI "\fBp_cm_t\fP \fBlibEdmInitArc\fP (void)"
+.br
+.RI "\fIfuncao que inicializa crc16 com padrao Arc \fP"
+.ti -1c
+.RI "int \fBlibEdmGetCrcArc_r\fP (\fBp_cm_t\fP p_cm, const uint8_t *vet, uint32_t sizeVet, uint16_t *crc16)"
+.br
+.RI "\fIfuncao que calcula o crc dos dados do vetor passado como parametro, preenchendo a variavel passada por referencia \fP"
+.ti -1c
+.RI "\fBp_cm_t\fP \fBlibEdmInitModbus\fP (void)"
+.br
+.RI "\fIfuncao que inicializa crc16 com padrao Arc \fP"
+.ti -1c
+.RI "int \fBlibEdmGetCrcModbus_r\fP (\fBp_cm_t\fP p_cm, const uint8_t *vet, uint32_t sizeVet, uint16_t *crc16)"
+.br
+.RI "\fIfuncao que calcula o crc dos dados do vetor passado como parametro, preenchendo a variavel passada por referencia \fP"
+.ti -1c
+.RI "\fBp_cm_t\fP \fBlibEdmInitCRC32\fP (void)"
+.br
+.RI "\fIfuncao que inicializa crc32 \fP"
+.ti -1c
+.RI "int \fBlibEdmGetCrc32_r\fP (\fBp_cm_t\fP p_cm, const uint8_t *vet, uint32_t sizeVet, uint32_t *crc32)"
+.br
+.RI "\fIfuncao que calcula o crc dos dados do vetor passado como parametro, preenchendo a variavel passada por referencia \fP"
+.ti -1c
+.RI "void \fBlibEdmInfoCrc\fP (\fBp_cm_t\fP \fBcm_t\fP)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+File containing includes, defines, and demias externados\&. 
+
+
+.PP
+\fBAuthor:\fP
+.RS 4
+LUcio Pintanel 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+9 Aug 2016 
+.RE
+.PP
+
+.PP
+Definition in file \fBedm\&.c\fP\&.
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define BITMASK(X)   (1L << (X))"
+Definicao da macro de calculo de mascara de bit 
+.PP
+Definition at line 33 of file edm\&.c\&.
+.SS "#define CRC16_ARC_POLY   0x8005UL"
+Definicao do polinomio padrao para calculo de CRC16 ARC 
+.PP
+Definition at line 29 of file edm\&.c\&.
+.SS "#define CRC16_CITT_POLY   0x1021UL"
+Definicao do polinomio padrao para calculo de CRC16 CITT 
+.PP
+Definition at line 27 of file edm\&.c\&.
+.SS "#define CRC16_DNP   0xA6BCUL"
+Definicao do polinomio padrao para calculo de CRC16 DNP 
+.PP
+Definition at line 30 of file edm\&.c\&.
+.SS "#define CRC16_XMODEM_POLY   0x8408UL"
+Definicao do polinomio padrao para calculo de CRC16 XMODEM 
+.PP
+Definition at line 28 of file edm\&.c\&.
+.SS "#define CRC32   0x04C11DB7UL"
+Definicao do polinomio padrao para calculo de CRC32 
+.PP
+Definition at line 31 of file edm\&.c\&.
+.SS "#define FALSE   0"
+Definicao de falso 
+.PP
+Definition at line 43 of file edm\&.c\&.
+.SS "#define LOCAL   static"
+Definicao do modificador static 
+.PP
+Definition at line 34 of file edm\&.c\&.
+.SS "#define MAX_TAM   256UL"
+Define o tamanho da tabela de valores para calculo mais rápido do CRC 
+.PP
+Definition at line 24 of file edm\&.c\&.
+.SS "#define P_(A)   A"
+
+.PP
+Definition at line 48 of file edm\&.c\&.
+.SS "#define TRUE   1"
+Definicao de verdadeiro 
+.PP
+Definition at line 44 of file edm\&.c\&.
+.SS "#define VERSAO_MAX   _VERSAO_MAX"
+Definicao de versao Maxima, valor da definicao vem via Makefile 
+.PP
+Definition at line 20 of file edm\&.c\&.
+.SS "#define VERSAO_MIN   _VERSAO_MIN"
+Definicao de versao Minima, valor da definicao vem via Makefile 
+.PP
+Definition at line 21 of file edm\&.c\&.
+.SS "#define VERSAO_NRO   _VERSAO_NRO"
+Definicao de versao Númeor, valor da definicao vem via Makefile 
+.PP
+Definition at line 22 of file edm\&.c\&.
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef unsigned \fBbool\fP"
+Definicao de tipo 
+.PP
+Definition at line 39 of file edm\&.c\&.
+.SS "typedef unsigned char* \fBp_ubyte_\fP"
+Definicao de tipo 
+.PP
+Definition at line 40 of file edm\&.c\&.
+.SS "typedef unsigned long \fBulong\fP"
+Definicao de tipo 
+.PP
+Definition at line 38 of file edm\&.c\&.
+.SH "Function Documentation"
+.PP 
+.SS "void cm_blk (\fBp_cm_t\fP p_cm, \fBp_ubyte_\fP blk_adr, \fBulong\fP blk_len)"
+
+.PP
+Definition at line 199 of file edm\&.c\&.
+.SS "\fBulong\fP cm_crc (\fBp_cm_t\fP p_cm)"
+
+.PP
+Definition at line 209 of file edm\&.c\&.
+.SS "void cm_ini (\fBp_cm_t\fP p_cm)"
+
+.PP
+Definition at line 170 of file edm\&.c\&.
+.SS "void cm_nxt (\fBp_cm_t\fP p_cm, int ch)"
+
+.PP
+Definition at line 178 of file edm\&.c\&.
+.SS "\fBulong\fP cm_tab (\fBp_cm_t\fP p_cm, int index)"
+
+.PP
+funcao que inicializa a tabela para facilitar o calculo do crc 
+.PP
+\fBAuthor:\fP
+.RS 4
+Lucio Pintanel 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+que foi criado 17/10/16 19:06 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIp_cm\fP - estrutura de controle para calculo de crc 
+.br
+\fIindex\fP - valor do indece passada por parametro 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+lresult & widmask(p_cm) - valor a ser guardado na tabela 
+.RE
+.PP
+
+.PP
+Definition at line 228 of file edm\&.c\&.
+.SS "uint8_t libEdmCksData (uint8_t * data, const uint32_t size)"
+
+.PP
+funcao que calcula lrc, Longitudinal redundancy check 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP ponteiro para o vetor com os dados 
+.br
+\fIsize\fP tamanho do vetor passado por parametro 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+sum valor calculado 
+.RE
+.PP
+
+.PP
+Definition at line 126 of file edm\&.c\&.
+.SS "int libEdmGetCrc16CITT_r (\fBp_cm_t\fP p_cm, const uint8_t* vet, uint32_t sizeVet, uint16_t* crc16)"
+
+.PP
+funcao que calcula o crc dos dados do vetor passado como parametro, preenchendo a variavel passada por referencia 
+.PP
+\fBAuthor:\fP
+.RS 4
+Lucio Pintanel 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+que foi criado 11/10/16 23:13 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIp_cm\fP - ponteiro da estrutura de controle usado para calculo 
+.br
+\fIvet\fP - ponteiro para o vetor com os dados 
+.br
+\fIsizeVet\fP - informa o tamanho do vetor passado como parametro 
+.br
+\fIcrc16\fP - ponteiro para guardar o valor do crc calculado 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+0 -se realizou a rotina com sucesso 
+.PP
+-1 - se o ponteiro do vetor nao foi inicializado 
+.RE
+.PP
+
+.PP
+Definition at line 330 of file edm\&.c\&.
+.SS "int libEdmGetCrc32_r (\fBp_cm_t\fP p_cm, const uint8_t* vet, uint32_t sizeVet, uint32_t* crc32)"
+
+.PP
+funcao que calcula o crc dos dados do vetor passado como parametro, preenchendo a variavel passada por referencia 
+.PP
+\fBAuthor:\fP
+.RS 4
+Lucio Pintanel 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+que foi criado 11/10/16 23:13 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIp_cm\fP - ponteiro da estrutura de controle usado para calculo 
+.br
+\fIvet\fP - ponteiro para o vetor com os dados 
+.br
+\fIsizeVet\fP - informa o tamanho do vetor passado como parametro 
+.br
+\fIcrc32\fP - ponteiro para guardar o valor do crc calculado 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+0 -se realizou a rotina com sucesso 
+.PP
+-1 - se o ponteiro do vetor nao foi inicializado 
+.RE
+.PP
+
+.PP
+Definition at line 538 of file edm\&.c\&.
+.SS "int libEdmGetCrcArc_r (\fBp_cm_t\fP p_cm, const uint8_t* vet, uint32_t sizeVet, uint16_t* crc16)"
+
+.PP
+funcao que calcula o crc dos dados do vetor passado como parametro, preenchendo a variavel passada por referencia 
+.PP
+\fBAuthor:\fP
+.RS 4
+Lucio Pintanel 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+que foi criado 11/10/16 23:13 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIp_cm\fP - ponteiro da estrutura de controle usado para calculo 
+.br
+\fIvet\fP - ponteiro para o vetor com os dados 
+.br
+\fIsizeVet\fP - informa o tamanho do vetor passado como parametro 
+.br
+\fIcrc16\fP - ponteiro para guardar o valor do crc calculado 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+0 -se realizou a rotina com sucesso 
+.PP
+-1 - se o ponteiro do vetor nao foi inicializado 
+.RE
+.PP
+
+.PP
+Definition at line 434 of file edm\&.c\&.
+.SS "int libEdmGetCrcModbus_r (\fBp_cm_t\fP p_cm, const uint8_t* vet, uint32_t sizeVet, uint16_t* crc16)"
+
+.PP
+funcao que calcula o crc dos dados do vetor passado como parametro, preenchendo a variavel passada por referencia 
+.PP
+\fBAuthor:\fP
+.RS 4
+Lucio Pintanel 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+que foi criado 11/10/16 23:13 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIp_cm\fP - ponteiro da estrutura de controle usado para calculo 
+.br
+\fIvet\fP - ponteiro para o vetor com os dados 
+.br
+\fIsizeVet\fP - informa o tamanho do vetor passado como parametro 
+.br
+\fIcrc16\fP - ponteiro para guardar o valor do crc calculado 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+0 -se realizou a rotina com sucesso 
+.PP
+-1 - se o ponteiro do vetor nao foi inicializado 
+.RE
+.PP
+
+.PP
+Definition at line 486 of file edm\&.c\&.
+.SS "void libEdmInfoCrc (\fBp_cm_t\fP cm_t)"
+
+.PP
+Definition at line 557 of file edm\&.c\&.
+.SS "\fBp_cm_t\fP libEdmInitArc (void)"
+
+.PP
+funcao que inicializa crc16 com padrao Arc 
+.PP
+\fBAuthor:\fP
+.RS 4
+Lucio Pintanel 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+que foi criado 11/10/16 23:09 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+p_cm_t - ponteiro com a estrutura para calculo de crc usando 
+.RE
+.PP
+
+.PP
+Definition at line 407 of file edm\&.c\&.
+.SS "\fBp_cm_t\fP libEdmInitCRC16CITT (void)"
+
+.PP
+funcao que inicializa crc16 com padrao CITT 
+.PP
+\fBAuthor:\fP
+.RS 4
+Lucio Pintanel 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+que foi criado 11/10/16 23:09 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+p_cm_t - ponteiro com a estrutura para calculo de crc usando 
+.RE
+.PP
+
+.PP
+Definition at line 302 of file edm\&.c\&.
+.SS "\fBp_cm_t\fP libEdmInitCRC32 (void)"
+
+.PP
+funcao que inicializa crc32 
+.PP
+\fBAuthor:\fP
+.RS 4
+Lucio Pintanel 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+que foi criado 11/10/16 23:09 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+p_cm_t - ponteiro com a estrutura para calculo de crc usando 
+.RE
+.PP
+
+.PP
+Definition at line 511 of file edm\&.c\&.
+.SS "\fBp_cm_t\fP libEdmInitModbus (void)"
+
+.PP
+funcao que inicializa crc16 com padrao Arc 
+.PP
+\fBAuthor:\fP
+.RS 4
+Lucio Pintanel 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+que foi criado 11/10/16 23:09 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+p_cm_t - ponteiro com a estrutura para calculo de crc usando 
+.RE
+.PP
+
+.PP
+Definition at line 459 of file edm\&.c\&.
+.SS "\fBp_cm_t\fP libEdmInitXModem (void)"
+
+.PP
+funcao que inicializa crc16 com padrao XModem 
+.PP
+\fBAuthor:\fP
+.RS 4
+Lucio Pintanel 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+que foi criado 11/10/16 23:09 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+p_cm_t - ponteiro com a estrutura para calculo de crc usando 
+.RE
+.PP
+
+.PP
+Definition at line 355 of file edm\&.c\&.
+.SS "const char* libEdmVersion (int min)"
+
+.PP
+Definition at line 105 of file edm\&.c\&.
+.SS "int libGetCrcXModem_r (\fBp_cm_t\fP p_cm, const uint8_t* vet, uint32_t sizeVet, uint16_t* crc16)"
+
+.PP
+funcao que calcula o crc dos dados do vetor passado como parametro, preenchendo a variavel passada por referencia 
+.PP
+\fBAuthor:\fP
+.RS 4
+Lucio Pintanel 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+que foi criado 11/10/16 23:13 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIp_cm\fP - ponteiro da estrutura de controle usado para calculo 
+.br
+\fIvet\fP - ponteiro para o vetor com os dados 
+.br
+\fIsizeVet\fP - informa o tamanho do vetor passado como parametro 
+.br
+\fIcrc16\fP - ponteiro para guardar o valor do crc calculado 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+0 -se realizou a rotina com sucesso 
+.PP
+-1 - se o ponteiro do vetor nao foi inicializado 
+.RE
+.PP
+
+.PP
+Definition at line 382 of file edm\&.c\&.
+.SS "\fBLOCAL\fP \fBulong\fP \fBreflect\fP P_ ((\fBulong\fP v, int b))"
+
+.SS "\fBLOCAL\fP \fBulong\fP \fBwidmask\fP P_ ((\fBp_cm_t\fP))"
+
+.SS "\fBLOCAL\fP \fBulong\fP reflect (\fBulong\fP v, int b)"
+
+.PP
+Returns the value v with the bottom b [0,32] bits reflected\&. Example: reflect(0x3e23L,3) == 0x3e26\&. 
+.PP
+Definition at line 141 of file edm\&.c\&.
+.SS "\fBLOCAL\fP \fBulong\fP widmask (\fBp_cm_t\fP p_cm)"
+
+.PP
+Returns a longword whose value is (2^p_cm->cm_width)-1\&. The trick is to do this portably (e\&.g\&. without doing <<32)\&. 
+.PP
+Definition at line 162 of file edm\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Library EDM from the source code\&.

@@ -1,0 +1,80 @@
+.TH "cm_t" 3 "Sat Apr 15 2017" "Version 1.0.00" "Library EDM" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+cm_t \- set before the first initializing call to cm_ini\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBcm_width\fP"
+.br
+.ti -1c
+.RI "\fBulong\fP \fBcm_poly\fP"
+.br
+.ti -1c
+.RI "\fBulong\fP \fBcm_init\fP"
+.br
+.ti -1c
+.RI "\fBbool\fP \fBcm_refin\fP"
+.br
+.ti -1c
+.RI "\fBbool\fP \fBcm_refot\fP"
+.br
+.ti -1c
+.RI "\fBulong\fP \fBcm_xorot\fP"
+.br
+.ti -1c
+.RI "\fBulong\fP \fBcm_reg\fP"
+.br
+.ti -1c
+.RI "\fBulong\fP \fBcrcTable\fP [\fBMAX_TAM\fP]"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+set before the first initializing call to cm_ini\&. 
+.PP
+Definition at line 74 of file edm\&.c\&.
+.SH "Field Documentation"
+.PP 
+.SS "\fBulong\fP cm_init"
+Parameter: Initial register value\&. 
+.PP
+Definition at line 77 of file edm\&.c\&.
+.SS "\fBulong\fP cm_poly"
+Parameter: The algorithm's polynomial\&. 
+.PP
+Definition at line 76 of file edm\&.c\&.
+.SS "\fBbool\fP cm_refin"
+Parameter: Reflect input bytes? 
+.PP
+Definition at line 78 of file edm\&.c\&.
+.SS "\fBbool\fP cm_refot"
+Parameter: Reflect output CRC? 
+.PP
+Definition at line 79 of file edm\&.c\&.
+.SS "\fBulong\fP cm_reg"
+Context: Context during execution\&. 
+.PP
+Definition at line 81 of file edm\&.c\&.
+.SS "uint8_t cm_width"
+Parameter: Width in bits [8,32]\&. 
+.PP
+Definition at line 75 of file edm\&.c\&.
+.SS "\fBulong\fP cm_xorot"
+Parameter: XOR this to output CRC\&. 
+.PP
+Definition at line 80 of file edm\&.c\&.
+.SS "\fBulong\fP crcTable[\fBMAX_TAM\fP]"
+Value: tabela com valores para otimizar o codigo\&. 
+.PP
+Definition at line 82 of file edm\&.c\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Library EDM from the source code\&.
