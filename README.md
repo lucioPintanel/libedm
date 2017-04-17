@@ -1,5 +1,5 @@
 Objteivo
-O objetivo desta biblioteca é calcular CRC.
+O objetivo desta biblioteca é para calcular CRC.
 Usando tabela para efetuar o calculo mais rápido.
 
 Como usar
